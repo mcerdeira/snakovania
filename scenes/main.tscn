@@ -52,4 +52,4 @@ tile_set = SubResource("TileSet_o5qli")
 anchor_mode = 0
 
 [node name="Player" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(199, 304)
+position = Vector2(16, 304)

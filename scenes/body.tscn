@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://htc6cbv0d3xn"]
+
+[ext_resource type="Texture2D" uid="uid://mym60toip4vm" path="res://sprites/player_tail_spr.png" id="1_jmcoc"]
+[ext_resource type="Script" uid="uid://qxevvq81gs2e" path="res://scenes/body.gd" id="1_veluv"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f5bqu"]
+load_path = "res://.godot/imported/player_fake_tail_spr.png-8e926834f3d72312c577b9b46145da34.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f5bqu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jmcoc")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_f5bqu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmcoc"]
+size = Vector2(30, 30)
+
+[node name="Body" type="StaticBody2D"]
+script = ExtResource("1_veluv")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_f5bqu")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jmcoc")
