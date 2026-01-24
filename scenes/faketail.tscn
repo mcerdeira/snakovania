@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnmag67vtg20"]
+
+[ext_resource type="Texture2D" uid="uid://mym60toip4vm" path="res://sprites/player_tail_spr.png" id="1_8xkiv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qhqgy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8xkiv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="faketail" type="Node2D"]
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qhqgy")

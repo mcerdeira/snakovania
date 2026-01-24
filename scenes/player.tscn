@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://qt6c1px06bjv"]
+
+[ext_resource type="Script" uid="uid://bfe26kbgge1px" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://dj2ibyx75r0ne" path="res://sprites/player_worm_spr_0.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://mym60toip4vm" path="res://sprites/player_tail_spr.png" id="3_qhqgy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0wfyh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qhqgy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_g2els")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0wfyh")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o5qli")
+
+[node name="trail" type="Line2D" parent="."]
+top_level = true
+z_index = -1
+width = 32.0
+texture = ExtResource("3_qhqgy")
+texture_mode = 2
+joint_mode = 2
+round_precision = 32
