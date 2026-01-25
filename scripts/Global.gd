@@ -1,180 +1,26 @@
 extends Node
-const CELL_SIZE = 32
-const ROWS = 5
-const COLS = 5
-const OFFSET = Vector2(192, 96)
 
-var TurnCountTotal = 3
-var TurnCount = 3
-var FLOOR = 1
-var QuestObj = []
-var GRID_ELEMENTS = [] #rows,cols
-var LEVELS = []
-var LEVEL = 0
 var GAME_OVER = false
 var Main = null
 var FULLSCREEN = false
-var shaker_obj = null      
-var TIME_SIZE = 1.0
-var TIME_LEFT = 0
-var minutes = 0
-var seconds = 0
+var shaker_obj = null
 var player = null
-var life = 3
-var DMG = 0
-var KeyAppeared = false
-var NEXT = null
-var MainQuest = {}
-var Objetives = []
-
-var TutorialLevel = true
+var player_obj = load("res://scenes/player.tscn")
 var MainTheme = null
-
-var HurtSFX = null
-var WalkSFX1 = null
-var WalkSFX2 = null
-var BeepSFX = null
-var WeaponSFX = null
-var HealSFX = null
-var DoorSFX = null
-var KeysSFX = null
-var EnemyHitSFX = null
-var PlayerDieSFX = null
-
-var PotionMergeSFX = null
-var MonsterMergeSFX = null
-var WeaponMergeSFX = null
-var PlayerAttack = null
-var Wok = false
-var Aok = false
-var Sok = false
-var Dok = false
-var WPos = Vector2(256, 192)
-var APos = Vector2(224, 224)
-var SPos = Vector2(256, 224)
-var DPos = Vector2(288, 224)
-
-enum GridType { 
-	EMPTY = 0,
-	ENEMY = 1,
-	WEAPON = 2,
-	ITEM = 3,
-	PLAYER = 4,
-	KEY = 5,
-	LETTER = 6,
-	STATIC = 7,
-}
-
-var spawn_weights := {
-	GridType.ENEMY: 60,
-	GridType.WEAPON: 20,
-	GridType.ITEM: 20,
-}
-
-var spawn_weights_full := {
-	GridType.ENEMY: 49,
-	GridType.WEAPON: 24,
-	GridType.ITEM: 30,
-	GridType.KEY: 1,
-}
-
-enum LegalMoves {
-	NON,
-	MOVEMENT,
-	MERGE,
-	ATTACK,
-	GET_WEAPON,
-	GET_ITEM,
-	GET_KEY,
-}
+var CurrentLevel = null
+var PlayerSpawnPoint = null
 
 func _ready() -> void:
-	define_objetives()
+	player = player_obj.instantiate()
+	CurrentLevel = "room_0"
 	load_music()
 	load_sfx()
-	game_reset()
-	
-func game_reset():
-	Wok = false
-	Aok = false
-	Sok = false
-	Dok = false
-	
-	FLOOR = 1
-	GAME_OVER = false
-	life = 3
-	DMG = 0
-	KeyAppeared = false
-	QuestObj = []
-	
-func define_objetives():
-	var files = list_directory_contents("res://levels/")
-	for f in files:
-		var content = read_level("res://levels/" + f).split(";")
-		var layout = content[0]
-		var objetive = content[1]
-		
-		LEVELS.append(layout)
-		var lo = str_to_var(objetive)
-		Objetives.append(lo)
-		
-	for i in 5:
-		var row = []
-		for j in 5:
-			row.append(null)
-		GRID_ELEMENTS.append(row)
-	
+
 func load_music():
-	MainTheme = load("res://music/dungeon.wav")
-	
-func list_directory_contents(path: String):
-	var files = []
-	var dir_access = DirAccess.open(path)
-
-	if dir_access:
-		dir_access.list_dir_begin()
-		var file_name = dir_access.get_next()
-		while file_name != "":
-			if dir_access.current_is_dir():
-				print("Found directory: " + file_name)
-			else:
-				files.append(file_name)
-			file_name = dir_access.get_next()
-		dir_access.list_dir_end()
-		
-		return files
-	else:
-		print("An error occurred when trying to access the path.")
-	
-func read_level(path: String):
-	if not FileAccess.file_exists(path):
-		print("Error: File not found at path ", path)
-		return
-
-	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
-
-	if file == null:
-		print("Error opening file: ", FileAccess.get_open_error())
-		return
-		
-	var content: String = file.get_as_text()
-	file.close()
-	return content
+	pass
 	
 func load_sfx():
-	HurtSFX = load("res://sfx/hurt_snd.wav")
-	WalkSFX1 = load("res://sfx/walk.mp3")
-	BeepSFX = load("res://sfx/beep.mp3")
-	WeaponSFX = load("res://sfx/sword.5.ogg")
-	HealSFX = load("res://sfx/heal.wav")
-	KeysSFX = load("res://sfx/keys_01.ogg")
-	DoorSFX = load("res://sfx/door_open.wav")
-	PlayerDieSFX = load("res://sfx/PlayerDieSfx.wav")
-	EnemyHitSFX = load("res://sfx/EnemyHit.wav")	
-	PotionMergeSFX = load("res://sfx/potionmerge.wav")
-	MonsterMergeSFX = load("res://sfx/monstermerge.wav")
-	WeaponMergeSFX = load("res://sfx/weaponmerge.wav")
-	PlayerAttack = load("res://sfx/Attack.wav")
+	pass
 
 #func emit(_global_position, count, particle_obj = null, size = 1):
 	#var part = particle

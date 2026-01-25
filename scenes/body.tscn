@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://qxevvq81gs2e" path="res://scenes/body.gd" id="1_veluv"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f5bqu"]
-load_path = "res://.godot/imported/player_fake_tail_spr.png-8e926834f3d72312c577b9b46145da34.ctex"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f5bqu"]
 animations = [{

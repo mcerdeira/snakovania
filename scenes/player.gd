@@ -19,6 +19,9 @@ var size = 0
 @onready var trail: Line2D = $trail
 @onready var sprite: AnimatedSprite2D = $sprite
 
+func _ready() -> void:
+	add_to_group("player")
+
 func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("grow") and (growing or is_on_floor()):
