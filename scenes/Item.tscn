@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://dig1ghfm3buu5"]
+
+[ext_resource type="Texture2D" uid="uid://dc4wn3rw7wjuk" path="res://sprites/items1.png" id="1_bx46p"]
+[ext_resource type="Script" uid="uid://b4chlwyeof8a6" path="res://scenes/item.gd" id="1_e0dfn"]
+[ext_resource type="Shader" uid="uid://k2pedknt6pkt" path="res://shaders/shine.gdshader" id="1_h0yph"]
+[ext_resource type="Texture2D" uid="uid://bqpj1x53thjs1" path="res://sprites/items2.png" id="2_h0yph"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0dfn"]
+shader = ExtResource("1_h0yph")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_size = 0.01
+shader_parameter/white = 0.0
+shader_parameter/on = true
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e0dfn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bx46p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_h0yph")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx46p"]
+size = Vector2(32, 36)
+
+[sub_resource type="Animation" id="Animation_e0dfn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h0yph"]
+resource_name = "new_animation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_va81k"]
+_data = {
+&"RESET": SubResource("Animation_e0dfn"),
+&"new_animation": SubResource("Animation_h0yph")
+}
+
+[node name="Item" type="Area2D"]
+script = ExtResource("1_e0dfn")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_e0dfn")
+sprite_frames = SubResource("SpriteFrames_e0dfn")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_bx46p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_va81k")
+}
+autoplay = "new_animation"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

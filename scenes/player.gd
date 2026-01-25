@@ -21,10 +21,16 @@ var size = 0
 
 func _ready() -> void:
 	add_to_group("player")
+	
+func get_fliph():
+	return $sprite.flip_h
+
+func set_fliph(flip):
+	$sprite.flip_h = flip
 
 func _physics_process(delta: float) -> void:
 
-	if Input.is_action_just_pressed("grow") and (growing or is_on_floor()):
+	if Global.Hasgrow and Input.is_action_just_pressed("grow") and (growing or is_on_floor()):
 		growing = !growing
 		if growing:
 			start_grow()

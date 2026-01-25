@@ -9,6 +9,11 @@ var player_obj = load("res://scenes/player.tscn")
 var MainTheme = null
 var CurrentLevel = null
 var PlayerSpawnPoint = null
+var PlayerFlipH = false
+var PlayerVelocityY = 0
+var ItemNotification = null
+
+var Hasgrow = false
 
 func _ready() -> void:
 	player = player_obj.instantiate()

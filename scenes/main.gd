@@ -10,5 +10,7 @@ func _ready() -> void:
 		Global.PlayerSpawnPoint = Vector2.ZERO
 	else:
 		Global.player.global_position = Global.PlayerSpawnPoint
+		Global.player.set_fliph(Global.PlayerFlipH)
+		Global.player.velocity.y = Global.PlayerVelocityY
 	
 	add_child(Global.player)
