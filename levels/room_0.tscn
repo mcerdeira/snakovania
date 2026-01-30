@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://bdlpoh1atn6iq"]
+[gd_scene load_steps=7 format=4 uid="uid://bdlpoh1atn6iq"]
 
 [ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_cqp35"]
 [ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_6vdv3"]
 [ext_resource type="PackedScene" uid="uid://c3kjla7r5pytm" path="res://scenes/door.tscn" id="2_alrbd"]
+[ext_resource type="PackedScene" uid="uid://c72soxe3po3ct" path="res://scenes/Plants.tscn" id="4_0jwyo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_cqp35")
@@ -44,16 +45,113 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_0wfyh")
 
 [node name="room_0" type="TileMapLayer"]
-tile_map_data = PackedByteArray("AAADAAoAAAADAAAAAAAEAAoAAAADAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAACAAoAAAADAAAAAAABAAoAAAADAAAAAAAAAAoAAAADAAAAAAD//woAAAADAAAAAAAIAAoAAAADAAAAAAAJAAoAAAADAAAAAAAKAAoAAAADAAAAAAALAAoAAAADAAAAAAAMAAoAAAADAAAAAAANAAoAAAADAAAAAAAOAAoAAAADAAAAAAAPAAoAAAADAAAAAAAQAAoAAAADAAAAAAARAAoAAAADAAAAAAASAAoAAAADAAAAAAATAAoAAAADAAAAAAAUAAoAAAADAAAAAAAVAAoAAAADAAAAAAAWAAoAAAADAAAAAAAXAAoAAAADAAAAAAAYAAoAAAADAAAAAAAZAAoAAAADAAAAAAAaAAoAAAADAAAAAAAbAAoAAAADAAAAAAAcAAoAAAADAAAAAAAdAAoAAAADAAAAAAAeAAoAAAADAAAAAAAfAAoAAAADAAAAAAAgAAoAAAADAAAAAAAhAAoAAAADAAAAAAAiAAoAAAADAAAAAAAjAAoAAAADAAAAAAAkAAoAAAADAAAAAAAHAAoAAAADAAAAAAA=")
+tile_map_data = PackedByteArray("AAADAAoAAAADAAAAAAAEAAoAAAADAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAACAAoAAAADAAAAAAABAAoAAAADAAAAAAAAAAoAAAADAAAAAAD//woAAAADAAAAAAAIAAoAAAADAAAAAAAJAAoAAAADAAAAAAAKAAoAAAADAAAAAAALAAoAAAADAAAAAAAMAAoAAAADAAAAAAANAAoAAAADAAAAAAAOAAoAAAADAAAAAAAPAAoAAAADAAAAAAAQAAoAAAADAAAAAAARAAoAAAADAAAAAAASAAoAAAADAAAAAAATAAoAAAADAAAAAAAUAAoAAAADAAAAAAAVAAoAAAADAAAAAAAWAAoAAAADAAAAAAAXAAoAAAADAAAAAAAYAAoAAAADAAAAAAAZAAoAAAADAAAAAAAaAAoAAAADAAAAAAAbAAoAAAADAAAAAAAcAAoAAAADAAAAAAAdAAoAAAADAAAAAAAeAAoAAAADAAAAAAAfAAoAAAADAAAAAAAgAAoAAAADAAAAAAAhAAoAAAADAAAAAAAiAAoAAAADAAAAAAAjAAoAAAADAAAAAAAkAAoAAAADAAAAAAAHAAoAAAADAAAAAAAWAAQAAAAJAAAAAAAUAAQAAAAKAAAAAAAVAAMAAAAAAAAAAAAVAAQAAAAIAAAAAAA=")
 tile_set = SubResource("TileSet_o5qli")
 script = ExtResource("2_6vdv3")
 
 [node name="Door" parent="." instance=ExtResource("2_alrbd")]
 position = Vector2(-16, 304)
 x_axis = 1136
-goto = "room_2"
+direction = "L"
 
 [node name="Door2" parent="." instance=ExtResource("2_alrbd")]
 position = Vector2(1168, 304)
 x_axis = 20
-goto = "room_1"
+direction = "R"
+
+[node name="PlantGroup" type="Node2D" parent="."]
+
+[node name="Plants" parent="PlantGroup" instance=ExtResource("4_0jwyo")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup" instance=ExtResource("4_0jwyo")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup" instance=ExtResource("4_0jwyo")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup2" type="Node2D" parent="."]
+position = Vector2(78, 0)
+
+[node name="Plants" parent="PlantGroup2" instance=ExtResource("4_0jwyo")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup2" instance=ExtResource("4_0jwyo")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup2" instance=ExtResource("4_0jwyo")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup7" type="Node2D" parent="."]
+position = Vector2(426, -246)
+
+[node name="Plants" parent="PlantGroup7" instance=ExtResource("4_0jwyo")]
+position = Vector2(289, 374)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup7" instance=ExtResource("4_0jwyo")]
+position = Vector2(301, 375)
+
+[node name="Plants3" parent="PlantGroup7" instance=ExtResource("4_0jwyo")]
+position = Vector2(250, 342)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup3" type="Node2D" parent="."]
+position = Vector2(575, 0)
+
+[node name="Plants" parent="PlantGroup3" instance=ExtResource("4_0jwyo")]
+position = Vector2(265, 320)
+scale = Vector2(2.5, 2.5)
+
+[node name="Plants2" parent="PlantGroup3" instance=ExtResource("4_0jwyo")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup3" instance=ExtResource("4_0jwyo")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup4" type="Node2D" parent="."]
+position = Vector2(621, 0)
+
+[node name="Plants" parent="PlantGroup4" instance=ExtResource("4_0jwyo")]
+position = Vector2(265, 320)
+scale = Vector2(2.5, 2.5)
+
+[node name="Plants2" parent="PlantGroup4" instance=ExtResource("4_0jwyo")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup4" instance=ExtResource("4_0jwyo")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup5" type="Node2D" parent="."]
+position = Vector2(545, 0)
+
+[node name="Plants" parent="PlantGroup5" instance=ExtResource("4_0jwyo")]
+position = Vector2(265, 320)
+scale = Vector2(2.5, 2.5)
+
+[node name="Plants2" parent="PlantGroup5" instance=ExtResource("4_0jwyo")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup5" instance=ExtResource("4_0jwyo")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup6" type="Node2D" parent="."]
+position = Vector2(686, 0)
+
+[node name="Plants" parent="PlantGroup6" instance=ExtResource("4_0jwyo")]
+position = Vector2(265, 320)
+scale = Vector2(2.5, 2.5)
+
+[node name="Plants2" parent="PlantGroup6" instance=ExtResource("4_0jwyo")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup6" instance=ExtResource("4_0jwyo")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)

@@ -1,7 +1,9 @@
 extends Node2D
 
 func _ready() -> void:
-	var lvl_scene = load("res://levels/" + Global.CurrentLevel +".tscn")
+	var coordenas = Global.World[Global.CurrentLevel[0]][Global.CurrentLevel[1]]
+	var room = "room_" + str(coordenas) + ".tscn"
+	var lvl_scene = load("res://levels/" + room)
 	var lvl = lvl_scene.instantiate()
 	add_child(lvl)
 	Global.player = Global.player_obj.instantiate()

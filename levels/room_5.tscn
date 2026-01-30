@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=4 uid="uid://ctb1bw7n23f4a"]
+
+[ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_hsakj"]
+[ext_resource type="Texture2D" uid="uid://popv5yu14jcr" path="res://tilemaps/water1-sheet.png" id="2_nxyt1"]
+[ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="3_cdo0o"]
+[ext_resource type="PackedScene" uid="uid://c3kjla7r5pytm" path="res://scenes/door.tscn" id="4_h83rv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
+texture = ExtResource("1_hsakj")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+10:0/0 = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+11:0/0 = 0
+11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+12:0/0 = 0
+12:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+13:0/0 = 0
+13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+14:0/0 = 0
+14:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fppkq"]
+texture = ExtResource("2_nxyt1")
+texture_region_size = Vector2i(32, 32)
+0:0/animation_columns = 2
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_o5qli"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0wfyh")
+sources/3 = SubResource("TileSetAtlasSource_fppkq")
+
+[node name="room_5" type="TileMapLayer"]
+tile_map_data = PackedByteArray("AAAdAAEAAAAIAAAAAAAeAAEAAAAIAAAAAAAfAAEAAAAIAAAAAAAgAAEAAAAIAAAAAAAhAAEAAAAIAAAAAAAiAAEAAAAIAAAAAAAbAAEAAAAKAAAAAAAcAAEAAAAIAAAAAAAcAAAAAAACAAAAAAAbABQAAAACAAAAAAAcABMAAAACAAAAAAAdABIAAAACAAAAAAAeABEAAAACAAAAAAAfABEAAAADAAAAAAAgABEAAAADAAAAAAAhABEAAAADAAAAAAAiABEAAAADAAAAAAAjABAAAAAMAAAAAAAjAA8AAAAMAAAAAAAjAA4AAAAMAAAAAAAjAA0AAAAMAAAAAAAjAAwAAAAMAAAAAAAjAAsAAAAMAAAAAAAjAAoAAAAMAAAAAAAjAAkAAAAMAAAAAAAjAAgAAAAMAAAAAAAjAAcAAAAMAAAAAAAjAAYAAAAMAAAAAAAjAAUAAAAMAAAAAAAjAAQAAAAMAAAAAAAjAAMAAAAMAAAAAAAjAAIAAAAMAAAAAAAkAAIAAAAMAAAAAAAZAA4AAAAKAAAAAAAaAA4AAAAJAAAAAAAWAAoAAAAJAAAAAAAVAAoAAAAKAAAAAAAPAA0AAAAKAAAAAAAQAA0AAAALAAAAAAAQAAUAAAAKAAAAAAARAAUAAAAJAAAAAAANAAoAAAAJAAAAAAAMAAoAAAAKAAAAAAAIAAcAAAAKAAAAAAAJAAcAAAAJAAAAAAAMAAQAAAAJAAAAAAALAAQAAAAKAAAAAAA=")
+tile_set = SubResource("TileSet_o5qli")
+script = ExtResource("3_cdo0o")
+
+[node name="Door" parent="." instance=ExtResource("4_h83rv")]
+position = Vector2(-16, 304)
+x_axis = 1136
+direction = "L"
+
+[node name="Door2" parent="." instance=ExtResource("4_h83rv")]
+position = Vector2(1168, 304)
+x_axis = 20
+direction = "R"
+
+[node name="Door3" parent="." instance=ExtResource("4_h83rv")]
+position = Vector2(600, -18)
+rotation = 1.5708
+y_axis = 631
+direction = "U"
+
+[node name="Door4" parent="." instance=ExtResource("4_h83rv")]
+position = Vector2(628, 668)
+rotation = 1.5708
+y_axis = 17
+direction = "D"

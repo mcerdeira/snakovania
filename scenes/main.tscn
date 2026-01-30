@@ -1,11 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkacgvpl27n5d"]
+[gd_scene load_steps=6 format=3 uid="uid://dkacgvpl27n5d"]
 
 [ext_resource type="Script" uid="uid://cxjw6kckcr3n6" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="FontFile" uid="uid://baufptafjkcp6" path="res://fonts/prstartk.ttf" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://dta1aqkgbvcvu" path="res://scenes/item_notification.gd" id="2_sugp2"]
+[ext_resource type="Shader" uid="uid://bpoomkb0q887x" path="res://scenes/chromatic.gdshader" id="4_jyhfs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbgi4"]
+shader = ExtResource("4_jyhfs")
+shader_parameter/amount = 0.1
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0wfyh")
+
+[node name="FX" type="ColorRect" parent="."]
+z_index = 4096
+material = SubResource("ShaderMaterial_tbgi4")
+offset_left = -23.0
+offset_top = -14.0
+offset_right = 1169.0
+offset_bottom = 670.0
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -13,7 +26,7 @@ anchor_mode = 0
 [node name="ItemNotification" type="Node2D" parent="."]
 process_mode = 3
 visible = false
-z_index = 1000
+z_index = 4095
 script = ExtResource("2_sugp2")
 
 [node name="background" type="ColorRect" parent="ItemNotification"]

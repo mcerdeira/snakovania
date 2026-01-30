@@ -13,13 +13,37 @@ var PlayerFlipH = false
 var PlayerVelocityY = 0
 var ItemNotification = null
 
-var Hasgrow = false
+var World =[]
 
+var Hasgrow = false
+var HasSwim = false
+
+func load_worldmap():
+	var file = FileAccess.open("res://levels/world.csv",FileAccess.READ)
+	while not file.eof_reached():
+		var csv_line: PackedStringArray = file.get_csv_line(";")
+		if not csv_line.is_empty():
+			World.append(csv_line)
+		
 func _ready() -> void:
 	player = player_obj.instantiate()
-	CurrentLevel = "room_0"
+	CurrentLevel = [7, 7]
+	load_worldmap()
 	load_music()
 	load_sfx()
+	
+func calcRoom(dir):
+	var xx = Global.CurrentLevel[0]
+	var yy = Global.CurrentLevel[1]
+	if dir == "R":
+		Global.CurrentLevel = [xx, yy + 1]
+	elif dir == "L":
+		Global.CurrentLevel = [xx, yy - 1]
+	elif dir == "U":
+		Global.CurrentLevel = [xx - 1, yy]
+	elif dir == "D":
+		Global.CurrentLevel = [xx + 1, yy]
+
 
 func load_music():
 	pass

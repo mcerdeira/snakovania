@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=4 uid="uid://bqpmojhbteobq"]
+[gd_scene load_steps=7 format=4 uid="uid://bqpmojhbteobq"]
 
-[ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_x1802"]
-[ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_4ivhd"]
-[ext_resource type="PackedScene" uid="uid://c3kjla7r5pytm" path="res://scenes/door.tscn" id="3_s2h6b"]
+[ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_v6vyc"]
+[ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_m60mw"]
+[ext_resource type="PackedScene" uid="uid://c3kjla7r5pytm" path="res://scenes/door.tscn" id="3_m483f"]
+[ext_resource type="PackedScene" uid="uid://c72soxe3po3ct" path="res://scenes/Plants.tscn" id="4_fkghy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
-texture = ExtResource("1_x1802")
+texture = ExtResource("1_v6vyc")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -44,14 +45,29 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_0wfyh")
 
 [node name="room_1" type="TileMapLayer"]
-tile_map_data = PackedByteArray("AAADAAoAAAADAAAAAAAEAAoAAAADAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAACAAoAAAADAAAAAAABAAoAAAADAAAAAAAAAAoAAAADAAAAAAD//woAAAADAAAAAAASAAkAAAAMAAAAAAASAAYAAAAMAAAAAAASAAQAAAAMAAAAAAASAAcAAAAMAAAAAAAIAAoAAAADAAAAAAAJAAoAAAADAAAAAAAKAAoAAAADAAAAAAALAAoAAAADAAAAAAAMAAoAAAADAAAAAAANAAoAAAADAAAAAAAOAAoAAAADAAAAAAAPAAoAAAADAAAAAAAQAAoAAAADAAAAAAARAAoAAAADAAAAAAASAAgAAAAMAAAAAAARAAUAAAAKAAAAAAASAAMAAAAMAAAAAAASAAIAAAAMAAAAAAASAAEAAAACAAAAAAATAAEAAAADAAAAAAAUAAEAAAADAAAAAAAVAAEAAAADAAAAAAAWAAEAAAADAAAAAAAXAAEAAAADAAAAAAAYAAEAAAADAAAAAAAZAAEAAAADAAAAAAAaAAEAAAADAAAAAAAbAAEAAAADAAAAAAAcAAEAAAADAAAAAAAdAAEAAAADAAAAAAAeAAEAAAADAAAAAAAfAAEAAAADAAAAAAAgAAEAAAADAAAAAAAhAAEAAAADAAAAAAAiAAEAAAADAAAAAAAjAAEAAAADAAAAAAAkAAEAAAADAAAAAAAHAAoAAAADAAAAAAA=")
+tile_map_data = PackedByteArray("AAADAAoAAAADAAAAAAAEAAoAAAADAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAACAAoAAAADAAAAAAABAAoAAAADAAAAAAAAAAoAAAADAAAAAAD//woAAAADAAAAAAASAAkAAAAMAAAAAAASAAYAAAAMAAAAAAASAAQAAAAMAAAAAAASAAcAAAAMAAAAAAAIAAoAAAADAAAAAAAJAAoAAAADAAAAAAAKAAoAAAADAAAAAAALAAoAAAADAAAAAAAMAAoAAAADAAAAAAANAAoAAAADAAAAAAAOAAoAAAADAAAAAAAPAAoAAAADAAAAAAAQAAoAAAADAAAAAAARAAoAAAADAAAAAAASAAgAAAAMAAAAAAARAAUAAAAKAAAAAAASAAMAAAAMAAAAAAASAAIAAAACAAAAAAAHAAoAAAADAAAAAAATAAIAAAADAAAAAAAUAAIAAAADAAAAAAAVAAIAAAADAAAAAAAWAAIAAAADAAAAAAAXAAIAAAADAAAAAAAYAAIAAAADAAAAAAAZAAIAAAADAAAAAAAaAAIAAAADAAAAAAAbAAIAAAADAAAAAAAcAAIAAAADAAAAAAAdAAIAAAADAAAAAAAeAAIAAAADAAAAAAAfAAIAAAADAAAAAAAgAAIAAAADAAAAAAAhAAIAAAADAAAAAAAiAAIAAAADAAAAAAAjAAIAAAADAAAAAAAkAAIAAAADAAAAAAA=")
 tile_set = SubResource("TileSet_o5qli")
-script = ExtResource("2_4ivhd")
+script = ExtResource("2_m60mw")
 
-[node name="Door" parent="." instance=ExtResource("3_s2h6b")]
+[node name="Door" parent="." instance=ExtResource("3_m483f")]
 position = Vector2(-16, 304)
 x_axis = 1136
-goto = "room_0"
+direction = "L"
 
-[node name="Door2" parent="." instance=ExtResource("3_s2h6b")]
+[node name="Door2" parent="." instance=ExtResource("3_m483f")]
 position = Vector2(1168, 16)
+direction = "R"
+
+[node name="PlantGroup" type="Node2D" parent="."]
+position = Vector2(349, -256)
+
+[node name="Plants" parent="PlantGroup" instance=ExtResource("4_fkghy")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup" instance=ExtResource("4_fkghy")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup" instance=ExtResource("4_fkghy")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)

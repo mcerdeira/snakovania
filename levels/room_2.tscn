@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://df1etbg1k1yb"]
+[gd_scene load_steps=7 format=4 uid="uid://df1etbg1k1yb"]
 
 [ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_hlhp6"]
 [ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_vnmfa"]
 [ext_resource type="PackedScene" uid="uid://c3kjla7r5pytm" path="res://scenes/door.tscn" id="3_ncfng"]
+[ext_resource type="PackedScene" uid="uid://c72soxe3po3ct" path="res://scenes/Plants.tscn" id="4_gj8po"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_hlhp6")
@@ -50,14 +51,50 @@ script = ExtResource("2_vnmfa")
 
 [node name="Door2" parent="." instance=ExtResource("3_ncfng")]
 position = Vector2(-16, 304)
+direction = "L"
 
 [node name="Door3" parent="." instance=ExtResource("3_ncfng")]
 position = Vector2(1168, 304)
 x_axis = 20
-goto = "room_0"
+direction = "R"
 
 [node name="Door4" parent="." instance=ExtResource("3_ncfng")]
 position = Vector2(611, 668)
 rotation = 1.5708
 y_axis = 17
-goto = "room_3"
+direction = "D"
+
+[node name="PlantGroup" type="Node2D" parent="."]
+position = Vector2(163, 0)
+
+[node name="Plants" parent="PlantGroup" instance=ExtResource("4_gj8po")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup" instance=ExtResource("4_gj8po")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup" instance=ExtResource("4_gj8po")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup2" type="Node2D" parent="."]
+position = Vector2(512, 128)
+
+[node name="Plants" parent="PlantGroup2" instance=ExtResource("4_gj8po")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup2" instance=ExtResource("4_gj8po")]
+position = Vector2(275, 320)
+
+[node name="PlantGroup3" type="Node2D" parent="."]
+position = Vector2(512, 256)
+
+[node name="Plants" parent="PlantGroup3" instance=ExtResource("4_gj8po")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup3" instance=ExtResource("4_gj8po")]
+position = Vector2(275, 320)
+scale = Vector2(2.5, 2.5)

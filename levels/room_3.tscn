@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://ds6u240sr5sit"]
+[gd_scene load_steps=8 format=4 uid="uid://ds6u240sr5sit"]
 
 [ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_kygwv"]
 [ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_ivecm"]
 [ext_resource type="PackedScene" uid="uid://c3kjla7r5pytm" path="res://scenes/door.tscn" id="3_4cuu0"]
 [ext_resource type="PackedScene" uid="uid://dig1ghfm3buu5" path="res://scenes/Item.tscn" id="4_ivecm"]
+[ext_resource type="PackedScene" uid="uid://c72soxe3po3ct" path="res://scenes/Plants.tscn" id="5_4cuu0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_kygwv")
@@ -52,13 +53,41 @@ script = ExtResource("2_ivecm")
 [node name="Door" parent="." instance=ExtResource("3_4cuu0")]
 position = Vector2(-16, 304)
 x_axis = 1136
-goto = "room_6"
+direction = "L"
 
 [node name="Door2" parent="." instance=ExtResource("3_4cuu0")]
 position = Vector2(1168, 304)
 x_axis = 20
-goto = "room_5"
+direction = "R"
 
 [node name="Item" parent="." instance=ExtResource("4_ivecm")]
 position = Vector2(194, 366)
 item_type = "grow"
+
+[node name="PlantGroup" type="Node2D" parent="."]
+position = Vector2(377, 0)
+
+[node name="Plants" parent="PlantGroup" instance=ExtResource("5_4cuu0")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup" instance=ExtResource("5_4cuu0")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup" instance=ExtResource("5_4cuu0")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup2" type="Node2D" parent="."]
+position = Vector2(632, -128)
+
+[node name="Plants" parent="PlantGroup2" instance=ExtResource("5_4cuu0")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup2" instance=ExtResource("5_4cuu0")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup2" instance=ExtResource("5_4cuu0")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)

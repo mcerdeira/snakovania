@@ -29,6 +29,9 @@ window/stretch/mode="viewport"
 texture={
 &"detect_3d/compress_to": 0
 }
+csv_translation={
+&"delimiter": 1
+}
 
 [input]
 

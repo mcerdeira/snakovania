@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=4 uid="uid://fiuoqpugsxit"]
+
+[ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_fppkq"]
+[ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_6x6s3"]
+[ext_resource type="Texture2D" uid="uid://popv5yu14jcr" path="res://tilemaps/water1-sheet.png" id="2_fppkq"]
+[ext_resource type="PackedScene" uid="uid://c3kjla7r5pytm" path="res://scenes/door.tscn" id="3_eo5r8"]
+[ext_resource type="PackedScene" uid="uid://c3ddinug2e40w" path="res://scenes/water.tscn" id="5_6x6s3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
+texture = ExtResource("1_fppkq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+10:0/0 = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+11:0/0 = 0
+11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+12:0/0 = 0
+12:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+13:0/0 = 0
+13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+14:0/0 = 0
+14:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fppkq"]
+texture = ExtResource("2_fppkq")
+texture_region_size = Vector2i(32, 32)
+0:0/animation_columns = 2
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_o5qli"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0wfyh")
+sources/3 = SubResource("TileSetAtlasSource_fppkq")
+
+[node name="room_4" type="TileMapLayer"]
+tile_map_data = PackedByteArray("AAAiAAoAAAADAAAAAAAjAAoAAAADAAAAAAAkAAoAAAADAAAAAAAfAAoAAAADAAAAAAAgAAoAAAADAAAAAAAhAAoAAAADAAAAAAAeAAkAAAABAAAAAAAdAAEAAAAIAAAAAAAeAAEAAAAIAAAAAAAfAAEAAAAIAAAAAAAgAAEAAAAIAAAAAAAhAAEAAAAIAAAAAAAiAAEAAAAIAAAAAAAjAAEAAAAIAAAAAAAkAAEAAAAIAAAAAAAdAAgAAAABAAAAAAAcAAcAAAABAAAAAAAbAAYAAAABAAAAAAAaAAUAAAABAAAAAAAZAAQAAAABAAAAAAAYAAMAAAABAAAAAAAXAAMAAAADAAAAAAAWAAMAAAADAAAAAAAVAAMAAAACAAAAAAAVAAQAAAAMAAAAAAAVAAUAAAAMAAAAAAAVAAYAAAAMAAAAAAAVAAcAAAAMAAAAAAAVAAgAAAAMAAAAAAAVAAkAAAAMAAAAAAAVAAoAAAAMAAAAAAAVAAsAAAAMAAAAAAAVAAwAAAAMAAAAAAAVAA0AAAAMAAAAAAAVAA4AAAAMAAAAAAAVAA8AAAAMAAAAAAAVABAAAAAMAAAAAAAVABEAAAAMAAAAAAAVABIAAAAMAAAAAAAVABMAAAAMAAAAAAAVABQAAAAMAAAAAAAUAAUAAwAAAAAAAAATAAUAAwAAAAAAAAASAAUAAwAAAAAAAAARAAUAAwAAAAAAAAAQAAUAAwAAAAAAAAAPAAUAAwAAAAAAAAAOAAUAAwAAAAAAAAANAAUAAwAAAAAAAAAMAAUAAwAAAAAAAAALAAUAAwAAAAAAAAAKAAUAAwAAAAAAAAAJAAUAAwAAAAAAAAAIAAUAAwAAAAAAAAAHAAUAAwAAAAAAAAAGAAUAAwAAAAAAAAAFAAUAAwAAAAAAAAAEAAUAAwAAAAAAAAADAAUAAwAAAAAAAAACAAUAAwAAAAAAAAABAAUAAwAAAAAAAAAAAAUAAwAAAAAAAAD//wUAAwAAAAAAAAAbAAEAAAAKAAAAAAAcAAEAAAAIAAAAAAAcAAAAAAACAAAAAAA=")
+tile_set = SubResource("TileSet_o5qli")
+script = ExtResource("2_6x6s3")
+
+[node name="Door" parent="." instance=ExtResource("3_eo5r8")]
+position = Vector2(-16, 304)
+x_axis = 1136
+direction = "L"
+
+[node name="Door2" parent="." instance=ExtResource("3_eo5r8")]
+position = Vector2(1168, 304)
+x_axis = 20
+direction = "R"
+
+[node name="Door3" parent="." instance=ExtResource("3_eo5r8")]
+position = Vector2(600, -23)
+rotation = 1.5708
+y_axis = 631
+direction = "U"
+
+[node name="water" parent="." node_paths=PackedStringArray("safe_pos") instance=ExtResource("5_6x6s3")]
+position = Vector2(11, 185)
+safe_pos = NodePath("../safe")
+
+[node name="safe" type="Marker2D" parent="."]
+position = Vector2(690, 80)

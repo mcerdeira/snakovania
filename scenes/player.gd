@@ -3,7 +3,6 @@ extends CharacterBody2D
 @export var speed: float = 200.0
 @export var gravity: float = 1200.0
 @export var record_dist: float = 6.0
-@export var rewind_speed_mult: float = 2.0
 
 var first_move_grow = true
 var grow_ttl = 0.0
@@ -15,6 +14,7 @@ var body_obj = load("res://scenes/body.tscn")
 var body_parts = []
 var maxsize = 10
 var size = 0
+var blowed = 0.0
 
 @onready var trail: Line2D = $trail
 @onready var sprite: AnimatedSprite2D = $sprite
@@ -29,9 +29,12 @@ func set_fliph(flip):
 	$sprite.flip_h = flip
 
 func _physics_process(delta: float) -> void:
-
-	if Global.Hasgrow and Input.is_action_just_pressed("grow") and (growing or is_on_floor()):
+	if blowed > 0:
+		blowed -= 1 * delta
+	
+	if blowed <= 0 and Global.Hasgrow and Input.is_action_just_pressed("grow") and (growing or is_on_floor()):
 		growing = !growing
+		$animations.stop()
 		if growing:
 			start_grow()
 		else:
@@ -71,13 +74,20 @@ func retract_step():
 		trail.clear_points()
 		return
 
+	grow_ttl = 0.04
 	var target = body_parts[0]
-
 	body_parts[0].queue_free()
 	trail.set_point_position(0, trail.to_local(body_parts[0].global_position))
-
 	body_parts.pop_front()
 	trail.remove_point(0)
+	
+func reset_to_last(pos):
+	#Global.play_sound(Global.PlayerHurtSFX)
+	$animations.stop()
+	global_position = pos
+	blowed = 1.1
+	velocity = Vector2.ZERO
+	$animations.play("reset_position")
 	
 func rewind_step():
 	if body_parts.is_empty():
@@ -85,7 +95,8 @@ func rewind_step():
 		trail.clear_points()
 		$fake_tail.visible = false
 		return
-
+	
+	grow_ttl = 0.04
 	var target = body_parts[-1]
 	global_position = target.global_position
 	target.queue_free()
@@ -98,17 +109,18 @@ func move_normal(delta: float) -> void:
 	else:
 		velocity.y = 0
 
-	var dir_h: float = Input.get_axis("left", "right")
-	if dir_h != 0:
-		face_dir = int(dir_h)
-		sprite.flip_h = face_dir == -1
-		if !$animations.is_playing():
-			$animations.play("walkanim")
-	else:
-		if $animations.is_playing():
-			$animations.stop()
+	if blowed <= 0:
+		var dir_h: float = Input.get_axis("left", "right")
+		if dir_h != 0:
+			face_dir = int(dir_h)
+			sprite.flip_h = face_dir == -1
+			if !$animations.is_playing():
+				$animations.play("walkanim")
+		else:
+			if $animations.is_playing():
+				$animations.stop()
 
-	velocity.x = dir_h * speed
+		velocity.x = dir_h * speed
 	
 func move_grow():
 	if Input.is_action_pressed("right"):

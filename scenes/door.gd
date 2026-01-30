@@ -1,7 +1,7 @@
 extends Area2D
 @export var x_axis = -1
 @export var y_axis = -1
-@export var goto : String = ""
+@export var direction = ""
 
 func _on_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("player"):
@@ -18,5 +18,6 @@ func _on_body_entered(body: Node2D) -> void:
 			
 		Global.PlayerVelocityY = Global.player.velocity.y
 		Global.PlayerFlipH = Global.player.get_fliph()
-		Global.CurrentLevel = goto
+		Global.calcRoom(direction)
+			
 		get_tree().reload_current_scene()
