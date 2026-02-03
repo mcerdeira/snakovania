@@ -22,6 +22,7 @@ Music="*res://scripts/Music.gd"
 
 [display]
 
+window/size/viewport_height=640
 window/stretch/mode="viewport"
 
 [importer_defaults]

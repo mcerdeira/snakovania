@@ -45,10 +45,10 @@ func calcRoom(dir):
 		Global.CurrentWorldPos.x -= 1152
 	elif dir == "U":
 		Global.CurrentLevel = [xx - 1, yy]
-		Global.CurrentWorldPos.y -= 648
+		Global.CurrentWorldPos.y -= 640
 	elif dir == "D":
 		Global.CurrentLevel = [xx + 1, yy]
-		Global.CurrentWorldPos.y += 648
+		Global.CurrentWorldPos.y += 640
 
 func calculate_snap(pos: Vector2, grid: float, origin: Vector2):
 	var half := grid * 0.5
