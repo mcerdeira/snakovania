@@ -29,10 +29,12 @@ offset_bottom = 682.0
 
 [node name="CameraMap" type="Camera2D" parent="Camera"]
 unique_name_in_owner = true
-position = Vector2(1730, 321)
+process_mode = 3
+position = Vector2(1728, 321)
 enabled = false
 
 [node name="Map" type="Node2D" parent="Camera"]
+process_mode = 3
 z_index = 4096
 position = Vector2(1152, 0)
 script = ExtResource("4_tefeu")

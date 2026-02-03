@@ -1,6 +1,6 @@
 extends Node
 
-var GAME_OVER = false
+var GAMEOVER = false
 var FULLSCREEN = false
 var shaker_obj = null
 var player = null
@@ -19,9 +19,10 @@ var prev_room = null
 
 var World =[]
 
+#HABILIDADES
 var Hasgrow = false
-var HasSwim = false
-var HasMap = false
+var HasSwim = true
+var HasMap = true
 
 func load_worldmap():
 	var file = FileAccess.open("res://levels/world.csv",FileAccess.READ)

@@ -2,24 +2,31 @@ extends Node2D
 var map_cells = []
 
 func _physics_process(delta: float) -> void:
-	if %CameraMap.enabled:
-		if Input.is_action_just_pressed("zoomin"):
-			%CameraMap.zoom += Vector2(1,1)
-		if Input.is_action_just_pressed("zoomout"):
-			%CameraMap.zoom -= Vector2(1,1)
-		if Input.is_action_pressed("right"):
-			%CameraMap.global_position.x += 10 * delta
-		if Input.is_action_pressed("left"):
-			%CameraMap.global_position.x -= 10 * delta
-	
-	if Input.is_action_just_pressed("map"):
-		%CameraMap.enabled = !%CameraMap.enabled
-		%Camera.enabled = !%Camera.enabled
+	if Global.HasMap:
 		if %CameraMap.enabled:
-			map_cells = []
-			draw_map()
-		else:
-			destroy_map()
+			if Input.is_action_just_pressed("zoomin"):
+				%CameraMap.zoom += Vector2(0.5, 0.5)
+			if Input.is_action_just_pressed("zoomout"):
+				%CameraMap.zoom -= Vector2(0.5, 0.5)
+			if Input.is_action_pressed("right"):
+				%CameraMap.global_position.x -= 50 * delta
+			if Input.is_action_pressed("left"):
+				%CameraMap.global_position.x += 50 * delta
+			if Input.is_action_pressed("up"):
+				%CameraMap.global_position.y += 50 * delta
+			if Input.is_action_pressed("down"):
+				%CameraMap.global_position.y -= 50 * delta
+		
+		if Input.is_action_just_pressed("map"):
+			%CameraMap.enabled = !%CameraMap.enabled
+			%Camera.enabled = !%Camera.enabled
+			if %CameraMap.enabled:
+				get_tree().paused = true
+				map_cells = []
+				draw_map()
+			else:
+				get_tree().paused = false
+				destroy_map()
 			
 func destroy_map():
 	for m in map_cells:

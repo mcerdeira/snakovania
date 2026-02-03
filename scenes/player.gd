@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var speed: float = 200.0
 @export var gravity: float = 1200.0
 @export var record_dist: float = 6.0
+@onready var trail: Line2D = $trail
+@onready var sprite: AnimatedSprite2D = $sprite
 
 var first_move_grow = true
 var grow_ttl = 0.0
@@ -15,9 +17,15 @@ var body_parts = []
 var maxsize = 10
 var size = 0
 var blowed = 0.0
+var is_in_water = false
 
-@onready var trail: Line2D = $trail
-@onready var sprite: AnimatedSprite2D = $sprite
+var ttl_total = 0.2
+var ttl = ttl_total
+var direction = Vector2.DOWN
+var body = []
+var dir_changed = true
+var position_prev = null
+var rotation_prev = null
 
 func _ready() -> void:
 	add_to_group("player")
@@ -27,6 +35,21 @@ func get_fliph():
 
 func set_fliph(flip):
 	$sprite.flip_h = flip
+	
+func set_in_water():
+	size = 0
+	is_in_water = true
+	position_prev = global_position
+	rotation_prev = $sprite.rotation_degrees
+	velocity = Vector2.ZERO
+	$animations.stop()
+	
+func add_parts():
+	var g = body_obj.instantiate()
+	g.show_tail()
+	g.global_position = Vector2(global_position.x - (32 * (body.size() + 1)), global_position.y)
+	get_parent().add_child(g)
+	body.append(g)
 
 func _physics_process(delta: float) -> void:
 	if global_position.x < Global.Camera.global_position.x:
@@ -41,44 +64,83 @@ func _physics_process(delta: float) -> void:
 	elif global_position.y < Global.Camera.global_position.y:
 		Global.calcRoom("U")
 		Global.Main.setRoom()
-	
-	if blowed > 0:
-		blowed -= 1 * delta
-	
-	if blowed <= 0 and Global.Hasgrow and Input.is_action_just_pressed("grow") and (growing or is_on_floor()):
-		growing = !growing
-		$animations.stop()
+		
+	if is_in_water:
+		if dir_changed:
+			if direction != Vector2.RIGHT and Input.is_action_just_pressed("left"):
+				dir_changed = false
+				direction = Vector2.LEFT
+				$sprite.flip_h = true
+			elif direction != Vector2.LEFT and Input.is_action_just_pressed("right"):
+				dir_changed = false
+				direction = Vector2.RIGHT
+				$sprite.flip_h = false
+			elif direction != Vector2.DOWN and Input.is_action_just_pressed("up"):
+				dir_changed = false
+				direction = Vector2.UP
+			elif direction != Vector2.UP and Input.is_action_just_pressed("down"):
+				dir_changed = false
+				direction = Vector2.DOWN
+
+		ttl -= 1 * delta
+		if ttl <= 0:
+			if !Global.GAMEOVER:
+				if size < maxsize:
+					size += 2
+					add_parts()
+				position += direction.normalized() * 32
+				update_body()
+				position_prev = global_position
+				rotation_prev = $sprite.rotation_degrees
+				ttl = ttl_total
+				dir_changed = true
+	else:
+		if blowed > 0:
+			blowed -= 1 * delta
+		
+		if blowed <= 0 and Global.Hasgrow and Input.is_action_just_pressed("grow") and (growing or is_on_floor()):
+			growing = !growing
+			$animations.stop()
+			if growing:
+				start_grow()
+			else:
+				end_grow()
+
+		if rewinding:
+			size = 0
+			if grow_ttl >= 0:
+				grow_ttl -= 1 * delta
+				return
+			rewind_step()
+			return
+
+		if retracting:
+			size = 0
+			if grow_ttl >= 0:
+				grow_ttl -= 1 * delta
+				return
+			retract_step()
+			return
+
 		if growing:
-			start_grow()
-		else:
-			end_grow()
-
-	if rewinding:
-		size = 0
-		if grow_ttl >= 0:
-			grow_ttl -= 1 * delta
+			if grow_ttl >= 0:
+				grow_ttl -= 1 * delta
+				return
+			if size < maxsize:
+				move_grow()
 			return
-		rewind_step()
-		return
 
-	if retracting:
-		size = 0
-		if grow_ttl >= 0:
-			grow_ttl -= 1 * delta
-			return
-		retract_step()
-		return
-
-	if growing:
-		if grow_ttl >= 0:
-			grow_ttl -= 1 * delta
-			return
-		if size < maxsize:
-			move_grow()
-		return
-
-	move_normal(delta)
-	move_and_slide()
+		move_normal(delta)
+		move_and_slide()
+		
+func update_body():
+	var prev = position_prev
+	var rot = rotation_prev
+	for b in body:
+		if b:
+			b.update_body(prev, rot)
+			prev = b.position_prev
+			rot = b.rotation_prev
 	
 func retract_step():
 	$fake_tail.visible = false

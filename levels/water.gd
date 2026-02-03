@@ -6,3 +6,5 @@ func _on_body_entered(body: Node2D) -> void:
 		if !body.growing and !body.retracting and !body.rewinding:
 			if !Global.HasSwim:
 				body.reset_to_last(safe_pos.global_position)
+			else:
+				body.set_in_water()
