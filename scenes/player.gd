@@ -29,6 +29,19 @@ func set_fliph(flip):
 	$sprite.flip_h = flip
 
 func _physics_process(delta: float) -> void:
+	if global_position.x < Global.Camera.global_position.x:
+		Global.calcRoom("L")
+		Global.Main.setRoom()
+	elif global_position.x > Global.Camera.global_position.x + 1152:
+		Global.calcRoom("R")
+		Global.Main.setRoom()
+	elif global_position.y > Global.Camera.global_position.y + 648:
+		Global.calcRoom("D")
+		Global.Main.setRoom()
+	elif global_position.y < Global.Camera.global_position.y:
+		Global.calcRoom("U")
+		Global.Main.setRoom()
+	
 	if blowed > 0:
 		blowed -= 1 * delta
 	
@@ -206,12 +219,7 @@ func ground_info_below() -> Dictionary:
 
 func start_grow():
 	first_move_grow = true
-	var grid := 32.0
-	var half := grid * 0.5
-	global_position = Vector2(
-		round((global_position.x - half) / grid) * grid + half,
-		round((global_position.y - half) / grid) * grid + half
-	)
+	global_position = Global.calculate_snap(global_position, 32.0, Global.current_room.global_position)
 	$fake_tail.visible = true
 	$fake_tail.global_position = global_position
 	trail.add_point(global_position)

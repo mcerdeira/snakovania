@@ -1,17 +1,20 @@
 extends Node
 
 var GAME_OVER = false
-var Main = null
 var FULLSCREEN = false
 var shaker_obj = null
 var player = null
 var player_obj = load("res://scenes/player.tscn")
 var MainTheme = null
 var CurrentLevel = null
+var CurrentWorldPos = Vector2.ZERO
 var PlayerSpawnPoint = null
 var PlayerFlipH = false
 var PlayerVelocityY = 0
 var ItemNotification = null
+var Main = null
+var Camera = null
+var current_room = null
 
 var World =[]
 
@@ -26,7 +29,6 @@ func load_worldmap():
 			World.append(csv_line)
 		
 func _ready() -> void:
-	player = player_obj.instantiate()
 	CurrentLevel = [7, 7]
 	load_worldmap()
 	load_music()
@@ -37,13 +39,23 @@ func calcRoom(dir):
 	var yy = Global.CurrentLevel[1]
 	if dir == "R":
 		Global.CurrentLevel = [xx, yy + 1]
+		Global.CurrentWorldPos.x += 1152
 	elif dir == "L":
 		Global.CurrentLevel = [xx, yy - 1]
+		Global.CurrentWorldPos.x -= 1152
 	elif dir == "U":
 		Global.CurrentLevel = [xx - 1, yy]
+		Global.CurrentWorldPos.y -= 648
 	elif dir == "D":
 		Global.CurrentLevel = [xx + 1, yy]
+		Global.CurrentWorldPos.y += 648
 
+func calculate_snap(pos: Vector2, grid: float, origin: Vector2):
+	var half := grid * 0.5
+	return Vector2(
+		round((pos.x - origin.x - half) / grid) * grid + origin.x + half,
+		round((pos.y - origin.y - half) / grid) * grid + origin.y + half
+	)
 
 func load_music():
 	pass

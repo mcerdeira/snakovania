@@ -1,7 +1,6 @@
 extends Area2D
 @export var safe_pos : Marker2D = null
 
-
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		if !body.growing and !body.retracting and !body.rewinding:
