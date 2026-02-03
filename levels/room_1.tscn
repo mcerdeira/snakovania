@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://bqpmojhbteobq"]
+[gd_scene load_steps=7 format=4 uid="uid://bqpmojhbteobq"]
 
 [ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_v6vyc"]
 [ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_m60mw"]
 [ext_resource type="PackedScene" uid="uid://c72soxe3po3ct" path="res://scenes/Plants.tscn" id="4_fkghy"]
+[ext_resource type="PackedScene" uid="uid://dig1ghfm3buu5" path="res://scenes/Item.tscn" id="4_yru1m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
 texture = ExtResource("1_v6vyc")
@@ -61,3 +62,7 @@ position = Vector2(275, 320)
 [node name="Plants3" parent="PlantGroup" instance=ExtResource("4_fkghy")]
 position = Vector2(253, 320)
 scale = Vector2(1.5, 1.5)
+
+[node name="Item" parent="." instance=ExtResource("4_yru1m")]
+position = Vector2(688, 47)
+item_type = "map"

@@ -15,11 +15,13 @@ var ItemNotification = null
 var Main = null
 var Camera = null
 var current_room = null
+var prev_room = null
 
 var World =[]
 
 var Hasgrow = false
 var HasSwim = false
+var HasMap = false
 
 func load_worldmap():
 	var file = FileAccess.open("res://levels/world.csv",FileAccess.READ)

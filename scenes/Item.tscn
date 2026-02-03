@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dig1ghfm3buu5"]
+[gd_scene load_steps=10 format=3 uid="uid://dig1ghfm3buu5"]
 
 [ext_resource type="Texture2D" uid="uid://dc4wn3rw7wjuk" path="res://sprites/items1.png" id="1_bx46p"]
 [ext_resource type="Script" uid="uid://b4chlwyeof8a6" path="res://scenes/item.gd" id="1_e0dfn"]
 [ext_resource type="Shader" uid="uid://k2pedknt6pkt" path="res://shaders/shine.gdshader" id="1_h0yph"]
-[ext_resource type="Texture2D" uid="uid://bqpj1x53thjs1" path="res://sprites/items2.png" id="2_h0yph"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e0dfn"]
 shader = ExtResource("1_h0yph")
@@ -18,12 +17,19 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_bx46p")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_h0yph")
 }],
 "loop": true,
-"name": &"default",
+"name": &"grow",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"map",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"swim",
 "speed": 5.0
 }]
 
@@ -73,6 +79,7 @@ script = ExtResource("1_e0dfn")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_e0dfn")
 sprite_frames = SubResource("SpriteFrames_e0dfn")
+animation = &"swim"
 
 [node name="collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
