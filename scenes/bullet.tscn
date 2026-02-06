@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnonowf6tl6nt"]
+
+[ext_resource type="Script" uid="uid://cuo6ntgyeebj5" path="res://scenes/bullet.gd" id="1_mkf8s"]
+[ext_resource type="Texture2D" uid="uid://b4o5hr5wg7ymq" path="res://sprites/player_fake_tail_spr1.png" id="2_y25gk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkf8s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mkf8s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_y25gk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_mkf8s")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mkf8s")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mkf8s")

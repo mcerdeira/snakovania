@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dig1ghfm3buu5"]
+[gd_scene load_steps=15 format=3 uid="uid://dig1ghfm3buu5"]
 
 [ext_resource type="Texture2D" uid="uid://dc4wn3rw7wjuk" path="res://sprites/items1.png" id="1_bx46p"]
 [ext_resource type="Script" uid="uid://b4chlwyeof8a6" path="res://scenes/item.gd" id="1_e0dfn"]
@@ -81,6 +81,56 @@ _data = {
 &"new_animation": SubResource("Animation_h0yph")
 }
 
+[sub_resource type="Animation" id="Animation_fukb6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_va81k"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.001, 10)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_bye"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fukb6"]
+_data = {
+&"RESET": SubResource("Animation_fukb6"),
+&"new_animation": SubResource("Animation_va81k")
+}
+
 [node name="Item" type="Area2D"]
 script = ExtResource("1_e0dfn")
 
@@ -98,5 +148,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_va81k")
 }
 autoplay = "new_animation"
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fukb6")
+}
+speed_scale = 5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -6,6 +6,19 @@ extends CharacterBody2D
 @onready var trail: Line2D = $trail
 @onready var sprite: AnimatedSprite2D = $sprite
 
+@onready var ghost : AnimatedSprite2D = $ghost
+@onready var shoot_line: Line2D = $shoot_line
+@export var max_angle := 60.0
+@export var aim_speed := 40.0
+@export var shoot_distance := 800.0
+var splited = false
+var is_clone = false
+var aim_angle := 0.0
+var preview_hit_position : Vector2
+
+var shooting = false
+var is_on_air = false
+var first_on_air = true
 var first_move_grow = true
 var grow_ttl = 0.0
 var growing: bool = false
@@ -13,14 +26,17 @@ var rewinding: bool = false
 var retracting: bool = false
 var face_dir: int = 1
 var body_obj = load("res://scenes/body.tscn")
+var bullet_obj = load("res://scenes/player.tscn")
 var body_parts = []
 var maxsize = 10
 var size = 0
 var blowed = 0.0
 var is_in_water = false
+var walk_smoke_ttl = 0.0
 
 var ttl_total = 0.2
 var ttl = ttl_total
+var ttl_add_parts = 1.0
 var direction = Vector2.DOWN
 var body = []
 var dir_changed = true
@@ -37,6 +53,8 @@ func set_fliph(flip):
 	$sprite.flip_h = flip
 	
 func set_in_water():
+	global_position = Global.calculate_snap(global_position, 32.0, Global.current_room.global_position)
+	ttl_add_parts = 1.0
 	size = 0
 	is_in_water = true
 	position_prev = global_position
@@ -53,17 +71,29 @@ func add_parts():
 
 func _physics_process(delta: float) -> void:
 	if global_position.x < Global.Camera.global_position.x:
-		Global.calcRoom("L")
-		Global.Main.setRoom()
+		if is_clone:
+			Global.player.re_call()
+		else:
+			Global.calcRoom("L")
+			Global.Main.setRoom()
 	elif global_position.x > Global.Camera.global_position.x + 1152:
-		Global.calcRoom("R")
-		Global.Main.setRoom()
+		if is_clone:
+			Global.player.re_call()
+		else:
+			Global.calcRoom("R")
+			Global.Main.setRoom()
 	elif global_position.y > Global.Camera.global_position.y + 648:
-		Global.calcRoom("D")
-		Global.Main.setRoom()
+		if is_clone:
+			Global.player.re_call()
+		else:
+			Global.calcRoom("D")
+			Global.Main.setRoom()
 	elif global_position.y < Global.Camera.global_position.y:
-		Global.calcRoom("U")
-		Global.Main.setRoom()
+		if is_clone:
+			Global.player.re_call()
+		else:
+			Global.calcRoom("U")
+			Global.Main.setRoom()
 		
 	if is_in_water:
 		if dir_changed:
@@ -83,11 +113,15 @@ func _physics_process(delta: float) -> void:
 				direction = Vector2.DOWN
 
 		ttl -= 1 * delta
+		if ttl_add_parts > 0:
+			ttl_add_parts -= 1 * delta
+			
 		if ttl <= 0:
 			if !Global.GAMEOVER:
 				if size < maxsize:
-					size += 2
-					add_parts()
+					if ttl_add_parts <= 0:
+						size += 2
+						add_parts()
 				position += direction.normalized() * 32
 				update_body()
 				position_prev = global_position
@@ -129,9 +163,90 @@ func _physics_process(delta: float) -> void:
 			if size < maxsize:
 				move_grow()
 			return
+			
+		if Global.HasSplit and !is_clone:
+			if Input.is_action_just_pressed("shoot"):
+				if splited:
+					re_call()
+				else:
+					if !shooting:
+						ghost.visible = true
+						aim_angle = 0
+						shooting = true
+			elif Input.is_action_just_released("shoot"):
+				if shooting:
+					ghost.visible = false
+					shooting = false
+					shoot_line.clear_points() 
+					splited = true
+					maxsize = 5
+					shoot()
+		
+		if !shooting:
+			move_normal(delta)
+			move_and_slide()
+		else:
+			var input_y = 0
+			if Input.is_action_pressed("up"):
+				input_y -= 1
+			if Input.is_action_pressed("down"):
+				input_y += 1
 
-		move_normal(delta)
-		move_and_slide()
+			aim_angle += input_y * aim_speed * delta
+			aim_angle = clamp(aim_angle, -max_angle, max_angle)
+
+			update_preview()
+			
+func re_call():
+	splited = false
+	maxsize = 10
+	var players = get_tree().get_nodes_in_group("clones")
+	if players.size() > 0:
+		for p in players:
+			p.queue_free()
+			
+func update_preview():
+	var mult = -1 if sprite.flip_h else 1
+	var dir = Vector2(mult, 0).rotated(deg_to_rad(aim_angle)).normalized()
+
+	var from = global_position
+	var to = from + dir * shoot_distance
+
+	var space_state = get_world_2d().direct_space_state
+
+	var query = PhysicsRayQueryParameters2D.create(from, to)
+	query.exclude = [self]
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+
+	var result = space_state.intersect_ray(query)
+
+	if result:
+		var normal = result.normal
+		preview_hit_position = result.position + normal * 16
+	else:
+		preview_hit_position = to
+	
+	ghost.global_position = preview_hit_position
+	
+	update_line(from, preview_hit_position)
+	
+func update_line(from: Vector2, to: Vector2):
+	shoot_line.clear_points()
+	shoot_line.add_point(from)
+	shoot_line.add_point(to)
+	
+func set_clone():
+	is_clone = true
+	maxsize = 5
+	add_to_group("clones")
+	$sprite.animation = "clone"
+
+func shoot():
+	var clone = bullet_obj.instantiate()
+	clone.global_position = preview_hit_position
+	clone.set_clone()
+	get_parent().add_child(clone)
 		
 func update_body():
 	var prev = position_prev
@@ -141,6 +256,7 @@ func update_body():
 			b.update_body(prev, rot)
 			prev = b.position_prev
 			rot = b.rotation_prev
+	
 	
 func retract_step():
 	$fake_tail.visible = false
@@ -179,9 +295,18 @@ func rewind_step():
 	trail.remove_point(trail.get_point_count() - 1)
 
 func move_normal(delta: float) -> void:
+	walk_smoke_ttl -= 1 * delta
 	if not is_on_floor():
+		is_on_air = true
 		velocity.y += gravity * delta
 	else:
+		if is_on_air:
+			if !first_on_air:
+				Global.emit(Vector2(global_position.x, global_position.y + 16), 5)
+			else:
+				first_on_air = false
+				
+		is_on_air = false
 		velocity.y = 0
 
 	if blowed <= 0:
@@ -189,6 +314,9 @@ func move_normal(delta: float) -> void:
 		if dir_h != 0:
 			face_dir = int(dir_h)
 			sprite.flip_h = face_dir == -1
+			if walk_smoke_ttl <= 0:
+				walk_smoke_ttl = 0.4
+				Global.emit(Vector2(global_position.x, global_position.y + 16), 1)
 			if !$animations.is_playing():
 				$animations.play("walkanim")
 		else:

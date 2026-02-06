@@ -1,5 +1,6 @@
 extends Node
 
+var particle = preload("res://scenes/particle2.tscn")
 var GAMEOVER = false
 var FULLSCREEN = false
 var shaker_obj = null
@@ -20,9 +21,10 @@ var prev_room = null
 var World =[]
 
 #HABILIDADES
-var Hasgrow = false
+var Hasgrow = true
 var HasSwim = true
 var HasMap = true
+var HasSplit = true
 
 func load_worldmap():
 	var file = FileAccess.open("res://levels/world.csv",FileAccess.READ)
@@ -66,16 +68,16 @@ func load_music():
 func load_sfx():
 	pass
 
-#func emit(_global_position, count, particle_obj = null, size = 1):
-	#var part = particle
-	#if particle_obj:
-		#part = particle_obj
-	#
-	#for i in range(count):
-		#var p = part.instantiate()
-		#p.global_position = _global_position
-		#p.size = size
-		#add_child(p)
+func emit(_global_position, count, particle_obj = null, size = 1):
+	var part = particle
+	if particle_obj:
+		part = particle_obj
+	
+	for i in range(count):
+		var p = part.instantiate()
+		p.global_position = _global_position
+		p.size = size
+		add_child(p)
 	
 func pick_random(container):
 	if typeof(container) == TYPE_DICTIONARY:

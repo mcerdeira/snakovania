@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhitiv04napr3"]
+
+[ext_resource type="Texture2D" uid="uid://cqallij8g3t2f" path="res://sprites/smoke.png" id="1_chwwl"]
+[ext_resource type="Script" uid="uid://bxx0ted60budd" path="res://scenes/particle2.gd" id="2_m2i80"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_84u42"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 1.1
+initial_velocity_max = 100.0
+angular_velocity_min = -420.0
+angular_velocity_max = -420.0
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -85.71
+tangential_accel_min = -60.71
+turbulence_noise_strength = 6.95
+turbulence_noise_scale = 2.95
+
+[node name="particle2" type="GPUParticles2D"]
+process_mode = 3
+modulate = Color(2, 2, 2, 0.57)
+z_index = 4096
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_84u42")
+texture = ExtResource("1_chwwl")
+lifetime = 0.4
+explosiveness = 1.0
+randomness = 1.0
+script = ExtResource("2_m2i80")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
