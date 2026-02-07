@@ -10,7 +10,7 @@ extends CharacterBody2D
 @onready var shoot_line: Line2D = $shoot_line
 @export var max_angle := 60.0
 @export var aim_speed := 40.0
-@export var shoot_distance := 800.0
+@export var shoot_distance := 1152.0
 var splited = false
 var is_clone = false
 var aim_angle := 0.0
@@ -27,6 +27,7 @@ var retracting: bool = false
 var face_dir: int = 1
 var body_obj = load("res://scenes/body.tscn")
 var bullet_obj = load("res://scenes/player.tscn")
+var recall_obj = load("res://scenes/bullet.tscn")
 var body_parts = []
 var maxsize = 10
 var size = 0
@@ -187,23 +188,38 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 		else:
 			var input_y = 0
+			var mult = -1 if sprite.flip_h else 1
 			if Input.is_action_pressed("up"):
-				input_y -= 1
+				input_y -= 1 * mult
 			if Input.is_action_pressed("down"):
-				input_y += 1
+				input_y += 1 * mult
 
 			aim_angle += input_y * aim_speed * delta
 			aim_angle = clamp(aim_angle, -max_angle, max_angle)
 
 			update_preview()
 			
+func kill_tail():
+	for b in body:
+		b.queue_free()
+			
 func re_call():
+	var clone_pos = Vector2.ZERO
 	splited = false
 	maxsize = 10
 	var players = get_tree().get_nodes_in_group("clones")
 	if players.size() > 0:
 		for p in players:
+			clone_pos = p.global_position
+			if p.is_in_water:
+				p.kill_tail()
+				
 			p.queue_free()
+			
+	var recall = recall_obj.instantiate()
+	recall.global_position = clone_pos
+	recall.direction = (global_position - clone_pos).normalized()
+	get_parent().add_child(recall)
 			
 func update_preview():
 	var mult = -1 if sprite.flip_h else 1
@@ -256,7 +272,6 @@ func update_body():
 			b.update_body(prev, rot)
 			prev = b.position_prev
 			rot = b.rotation_prev
-	
 	
 func retract_step():
 	$fake_tail.visible = false

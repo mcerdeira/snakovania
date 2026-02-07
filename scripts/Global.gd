@@ -25,6 +25,7 @@ var Hasgrow = true
 var HasSwim = true
 var HasMap = true
 var HasSplit = true
+var HasHook = true
 
 func load_worldmap():
 	var file = FileAccess.open("res://levels/world.csv",FileAccess.READ)

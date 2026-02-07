@@ -30,8 +30,15 @@ func _ready() -> void:
 			visible = true
 	elif item_type == "split":
 		title = "SPLIT"
-		description = "Now there is two of you."
+		description = "Divide yourself in two."
 		if Global.HasSplit:
+			queue_free()
+		else:
+			visible = true
+	elif item_type == "hook":
+		title = "HOOK"
+		description = "Hang onto some ceilings."
+		if Global.HasHook:
 			queue_free()
 		else:
 			visible = true
@@ -52,6 +59,8 @@ func _on_body_entered(body: Node2D) -> void:
 				Global.HasSwim = true
 			if item_type == "split":
 				Global.HasSplit = true
+			if item_type == "hook":
+				Global.HasHook = true
 				
 			taken = true
 			$AnimationPlayer.stop()
