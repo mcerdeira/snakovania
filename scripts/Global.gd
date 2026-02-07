@@ -8,6 +8,7 @@ var player = null
 var player_obj = load("res://scenes/player.tscn")
 var MainTheme = null
 var CurrentLevel = null
+var InitialPosition = Vector2(576, 304)
 var CurrentWorldPos = Vector2.ZERO
 var PlayerSpawnPoint = null
 var PlayerFlipH = false
@@ -39,6 +40,7 @@ func _ready() -> void:
 	load_worldmap()
 	load_music()
 	load_sfx()
+	load_game()
 	
 func calcRoom(dir):
 	var xx = Global.CurrentLevel[0]
@@ -62,6 +64,48 @@ func calculate_snap(pos: Vector2, grid: float, origin: Vector2):
 		round((pos.x - origin.x - half) / grid) * grid + origin.x + half,
 		round((pos.y - origin.y - half) / grid) * grid + origin.y + half
 	)
+	
+func save_game():
+	var saved_game = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	saved_game.store_var(CurrentLevel)
+	saved_game.store_var(InitialPosition)
+	saved_game.store_var(CurrentWorldPos)
+	saved_game.store_var(Hasgrow)
+	saved_game.store_var(HasSwim)
+	saved_game.store_var(HasMap)
+	saved_game.store_var(HasSplit)
+	saved_game.store_var(HasHook)
+	saved_game.close()
+	
+func load_game():
+	var f_exists = FileAccess.file_exists("user://savegame.save")
+	if f_exists:
+		var saved_game = FileAccess.open("user://savegame.save", FileAccess.READ)
+		if saved_game:
+			var cur_level = saved_game.get_var()
+			var ini_position = saved_game.get_var()
+			var cur_world = saved_game.get_var()
+			var has_grow = saved_game.get_var()
+			var has_swim = saved_game.get_var()
+			var has_map = saved_game.get_var()
+			var has_split = saved_game.get_var()
+			var has_hook = saved_game.get_var()
+			if cur_level:
+				CurrentLevel = cur_level
+			if ini_position:
+				InitialPosition = ini_position
+			if cur_world:
+				CurrentWorldPos = cur_world
+			if has_grow:
+				Hasgrow = has_grow
+			if has_swim:
+				HasSwim = has_swim
+			if has_map:
+				HasMap = has_map
+			if has_split:
+				HasSplit = has_split
+			if has_hook:
+				HasHook = has_hook
 
 func load_music():
 	pass

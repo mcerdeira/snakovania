@@ -24,5 +24,5 @@ func setRoom():
 	add_child(lvl)
 	if Global.player == null:
 		Global.player = Global.player_obj.instantiate()
-		Global.player.global_position = Vector2(576, 304)
+		Global.player.global_position = Global.InitialPosition
 		add_child(Global.player)

@@ -9,13 +9,13 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("zoomout"):
 				%CameraMap.zoom -= Vector2(0.5, 0.5)
 			if Input.is_action_pressed("right"):
-				%CameraMap.global_position.x -= 50 * delta
-			if Input.is_action_pressed("left"):
 				%CameraMap.global_position.x += 50 * delta
+			if Input.is_action_pressed("left"):
+				%CameraMap.global_position.x -= 50 * delta
 			if Input.is_action_pressed("up"):
-				%CameraMap.global_position.y += 50 * delta
-			if Input.is_action_pressed("down"):
 				%CameraMap.global_position.y -= 50 * delta
+			if Input.is_action_pressed("down"):
+				%CameraMap.global_position.y += 50 * delta
 		
 		if Input.is_action_just_pressed("map"):
 			%CameraMap.enabled = !%CameraMap.enabled

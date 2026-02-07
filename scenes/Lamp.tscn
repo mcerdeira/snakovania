@@ -1,0 +1,144 @@
+[gd_scene load_steps=21 format=3 uid="uid://do54q0y50mhlp"]
+
+[ext_resource type="Texture2D" uid="uid://bn7pfiyni0tui" path="res://sprites/lamp_1.png" id="1_js1s3"]
+[ext_resource type="Script" uid="uid://xm4eenu8526l" path="res://scenes/Lamp.gd" id="1_tg0cb"]
+[ext_resource type="Script" uid="uid://bjno3kbnmfd2u" path="res://scenes/LampDown.gd" id="2_808wp"]
+[ext_resource type="Texture2D" uid="uid://be433aqbx0xdp" path="res://sprites/lamp.png" id="2_g5v2b"]
+[ext_resource type="Texture2D" uid="uid://b5kikxil837ok" path="res://sprites/chain.png" id="3_clms0"]
+[ext_resource type="Texture2D" uid="uid://6pmot853drjy" path="res://sprites/fire_lamp1.png" id="3_yta5e"]
+[ext_resource type="Script" uid="uid://bd5m1xg4pj1kq" path="res://scenes/LampDown2.gd" id="4_mtbgv"]
+[ext_resource type="Texture2D" uid="uid://djpd64guy784b" path="res://sprites/fire_lamp2.png" id="4_xr7j6"]
+[ext_resource type="Texture2D" uid="uid://bb71wdil5exx3" path="res://sprites/fire_lamp3.png" id="5_gxw37"]
+[ext_resource type="Texture2D" uid="uid://c8ndarpxq2iic" path="res://sprites/lamp_bright.png" id="6_jkpmi"]
+[ext_resource type="Texture2D" uid="uid://cvxpgxynnk0hi" path="res://sprites/fire_lamp4.png" id="6_twntd"]
+[ext_resource type="Texture2D" uid="uid://c6l3igyyxob07" path="res://sprites/fire_lamp5.png" id="7_3wmjq"]
+[ext_resource type="Texture2D" uid="uid://cftb7gvyoui7a" path="res://sprites/fire_lamp6.png" id="8_nfnia"]
+[ext_resource type="Script" uid="uid://8dspvqcji6a5" path="res://scenes/sprite_control.gd" id="14_jueho"]
+
+[sub_resource type="Gradient" id="Gradient_0n1d0"]
+offsets = PackedFloat32Array(0, 0.875433)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dp1m7"]
+gradient = SubResource("Gradient_0n1d0")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.197)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yyehc"]
+radius = 18.0278
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hj37l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yta5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xr7j6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jkpmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gxw37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_twntd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jkpmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3wmjq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_nfnia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jkpmi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_ams2q"]
+resource_name = "new_animation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LampDown/PointLight2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.85938, 1.9375), Vector2(3, 2.033)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mcocy"]
+_data = {
+&"new_animation": SubResource("Animation_ams2q")
+}
+
+[node name="Lamp" type="Node2D"]
+z_index = 4094
+z_as_relative = false
+script = ExtResource("1_tg0cb")
+
+[node name="LampUp" type="Sprite2D" parent="."]
+texture = ExtResource("1_js1s3")
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 0)
+width = 5.0
+texture = ExtResource("3_clms0")
+texture_mode = 1
+
+[node name="LampPivot" type="Node2D" parent="." node_paths=PackedStringArray("LampDown", "Chain")]
+position = Vector2(0, 6)
+script = ExtResource("2_808wp")
+LampDown = NodePath("../LampDown")
+Chain = NodePath("../Line2D")
+
+[node name="LampDown" type="Node2D" parent="."]
+position = Vector2(0, 143)
+script = ExtResource("4_mtbgv")
+
+[node name="PointLight2D" type="PointLight2D" parent="LampDown"]
+position = Vector2(0, 3)
+scale = Vector2(2.85938, 1.9375)
+energy = 5.0
+texture = SubResource("GradientTexture2D_dp1m7")
+
+[node name="LampArea" type="Area2D" parent="LampDown"]
+collision_layer = 33
+collision_mask = 33
+
+[node name="collider" type="CollisionShape2D" parent="LampDown/LampArea"]
+shape = SubResource("CircleShape2D_yyehc")
+
+[node name="Lamp" type="Sprite2D" parent="LampDown/LampArea"]
+texture = ExtResource("2_g5v2b")
+
+[node name="sprite" type="AnimatedSprite2D" parent="LampDown/LampArea/Lamp"]
+z_index = -1
+z_as_relative = false
+position = Vector2(-0.25, 4.5)
+sprite_frames = SubResource("SpriteFrames_hj37l")
+autoplay = "default"
+speed_scale = 2.0
+script = ExtResource("14_jueho")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mcocy")
+}
+autoplay = "new_animation"
+speed_scale = 3.0
+
+[connection signal="body_entered" from="LampDown/LampArea" to="LampPivot" method="_on_lamp_area_body_entered"]
