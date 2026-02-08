@@ -23,10 +23,10 @@ var prev_room = null
 var World =[]
 
 #HABILIDADES
-var Hasgrow = false
+var Hasgrow = true
 var HasSwim = false
 var HasMap = false
-var HasSplit = false
+var HasSplit = true
 var HasHook = false
 
 func load_worldmap():

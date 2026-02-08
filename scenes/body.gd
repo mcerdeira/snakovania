@@ -3,6 +3,7 @@ var position_prev = null
 var rotation_prev = null
 
 func _ready() -> void:
+	add_to_group("player")
 	position_prev = global_position
 	rotation_prev = $sprite.rotation_degrees
 

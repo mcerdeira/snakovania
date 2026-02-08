@@ -53,7 +53,7 @@ func _on_lamp_area_body_entered(body):
 	if health > 0:
 		if body and (body.is_in_group("player") or body.is_in_group("enemies") or body.is_in_group("prisoners") or body.is_in_group("interactuable")):
 			var sound = null #Global.pick_random([Global.Chains1SFX, Global.Chains2SFX])
-			var db = linear_to_db(abs(body.velocity.x) * 0.01)
+			var db = linear_to_db(abs(20) * 0.01)
 			var options = {"volume_db": db}
 			if body.is_in_group("bosses"):
 				Global.play_sound(sound)

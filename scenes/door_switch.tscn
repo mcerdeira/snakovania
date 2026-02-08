@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://8ndhbaj0i0fb"]
+
+[ext_resource type="Texture2D" uid="uid://f86qfg1oj6fh" path="res://sprites/fire_switch.png" id="1_08x3x"]
+[ext_resource type="Script" uid="uid://dftys716c4qak" path="res://scenes/door_switch.gd" id="1_ghk6u"]
+[ext_resource type="Texture2D" uid="uid://dbjb7714bwel2" path="res://sprites/fire_switch2.png" id="2_ghk6u"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_em6g0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_08x3x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ghk6u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5eqv"]
+size = Vector2(22, 16)
+
+[node name="DoorSwitch" type="Area2D"]
+script = ExtResource("1_ghk6u")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_em6g0")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_c5eqv")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

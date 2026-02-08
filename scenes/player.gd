@@ -165,6 +165,8 @@ func _physics_process(delta: float) -> void:
 				move_grow()
 			return
 			
+		$fake_tail.global_position = global_position
+			
 		if Global.HasSplit and !is_clone:
 			if Input.is_action_just_pressed("shoot"):
 				if splited:
