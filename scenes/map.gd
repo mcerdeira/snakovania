@@ -1,37 +1,25 @@
 extends Node2D
 var map_cells = []
 
+func _ready() -> void:
+	map_cells = []
+	draw_map()
+	
+
 func _physics_process(delta: float) -> void:
-	if Global.HasMap:
-		if %CameraMap.enabled:
-			if Input.is_action_just_pressed("zoomin"):
-				%CameraMap.zoom += Vector2(0.5, 0.5)
-			if Input.is_action_just_pressed("zoomout"):
-				%CameraMap.zoom -= Vector2(0.5, 0.5)
-			if Input.is_action_pressed("right"):
-				%CameraMap.global_position.x += 50 * delta
-			if Input.is_action_pressed("left"):
-				%CameraMap.global_position.x -= 50 * delta
-			if Input.is_action_pressed("up"):
-				%CameraMap.global_position.y -= 50 * delta
-			if Input.is_action_pressed("down"):
-				%CameraMap.global_position.y += 50 * delta
-		
-		if Input.is_action_just_pressed("map"):
-			%CameraMap.enabled = !%CameraMap.enabled
-			%Camera.enabled = !%Camera.enabled
-			if %CameraMap.enabled:
-				get_tree().paused = true
-				map_cells = []
-				draw_map()
-			else:
-				get_tree().paused = false
-				destroy_map()
-			
-func destroy_map():
-	for m in map_cells:
-		m.queue_free()
-		
+	if Input.is_action_just_pressed("zoomin"):
+		%CameraMap.zoom += Vector2(0.5, 0.5)
+	if Input.is_action_just_pressed("zoomout"):
+		%CameraMap.zoom -= Vector2(0.5, 0.5)
+	if Input.is_action_pressed("right"):
+		%CameraMap.global_position.x += 50 * delta
+	if Input.is_action_pressed("left"):
+		%CameraMap.global_position.x -= 50 * delta
+	if Input.is_action_pressed("up"):
+		%CameraMap.global_position.y -= 50 * delta
+	if Input.is_action_pressed("down"):
+		%CameraMap.global_position.y += 50 * delta
+
 func draw_map():
 	const GRID_COLS = 16
 	const GRID_ROWS = 16
@@ -51,9 +39,6 @@ func draw_map():
 	for y in range(Global.World.size()):
 		for x in range(Global.World[y].size()):
 			var cell = Global.World[y][x]
-			if cell == "-1":
-				continue
-
 			var room_name = "room_" + str(cell) + ".tscn"
 			var lvl_scene = load("res://levels/" + room_name)
 			if lvl_scene == null:

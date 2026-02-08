@@ -1,0 +1,169 @@
+[gd_scene load_steps=7 format=4 uid="uid://kux5dgkxa7ih"]
+
+[ext_resource type="Texture2D" uid="uid://cww8f40jhxqgc" path="res://tilemaps/floor_std.png" id="1_m1hwq"]
+[ext_resource type="Script" uid="uid://djjnecs4cpl34" path="res://levels/room.gd" id="2_kew7w"]
+[ext_resource type="PackedScene" uid="uid://do54q0y50mhlp" path="res://scenes/Lamp.tscn" id="4_m1hwq"]
+[ext_resource type="PackedScene" uid="uid://c72soxe3po3ct" path="res://scenes/Plants.tscn" id="4_pvj1d"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0wfyh"]
+texture = ExtResource("1_m1hwq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+8:0/0 = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+10:0/0 = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+11:0/0 = 0
+11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+12:0/0 = 0
+12:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+13:0/0 = 0
+13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+14:0/0 = 0
+14:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_o5qli"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0wfyh")
+
+[node name="room_9" type="TileMapLayer"]
+tile_map_data = PackedByteArray("AAADAAoAAAADAAAAAAACAAoAAAADAAAAAAABAAoAAAADAAAAAAAAAAoAAAADAAAAAAD//woAAAADAAAAAAAIAAoAAAADAAAAAAAJAAoAAAADAAAAAAAKAAoAAAADAAAAAAALAAoAAAADAAAAAAAMAAoAAAADAAAAAAANAAoAAAADAAAAAAAOAAoAAAADAAAAAAAPAAoAAAADAAAAAAAQAAoAAAADAAAAAAARAAoAAAADAAAAAAASAAoAAAADAAAAAAATAAoAAAADAAAAAAAUAAoAAAADAAAAAAAVAAoAAAADAAAAAAAWAAoAAAADAAAAAAAXAAoAAAADAAAAAAAYAAoAAAADAAAAAAAZAAoAAAADAAAAAAAaAAoAAAADAAAAAAAiAAoAAAADAAAAAAAjAAoAAAADAAAAAAAkAAoAAAADAAAAAAAfAAoAAAADAAAAAAAgAAoAAAADAAAAAAAhAAoAAAADAAAAAAAbAAkAAAAMAAAAAAAbAAgAAAAMAAAAAAAbAAcAAAAMAAAAAAAcAAYAAAABAAAAAAAeAAgAAAABAAAAAAAeAAkAAAANAAAAAAAbAAYAAAACAAAAAAANAAEAAAAIAAAAAAAMAAEAAAAIAAAAAAALAAEAAAAIAAAAAAAKAAEAAAAIAAAAAAAGAAEAAAAIAAAAAAAFAAEAAAAIAAAAAAAEAAEAAAAIAAAAAAADAAEAAAAIAAAAAAACAAEAAAAIAAAAAAABAAEAAAAIAAAAAAAAAAEAAAAIAAAAAAD//wEAAAAIAAAAAAAaAAEAAAAIAAAAAAAbAAEAAAAIAAAAAAAcAAEAAAAIAAAAAAAdAAEAAAAIAAAAAAAeAAEAAAAIAAAAAAAfAAEAAAAIAAAAAAAgAAEAAAAIAAAAAAAhAAEAAAAIAAAAAAAiAAEAAAAIAAAAAAAjAAEAAAAIAAAAAAAkAAEAAAAIAAAAAAAPAAEAAAAIAAAAAAAQAAEAAAAIAAAAAAARAAEAAAAIAAAAAAASAAEAAAAIAAAAAAATAAEAAAAIAAAAAAAUAAEAAAAIAAAAAAAVAAEAAAAIAAAAAAAWAAEAAAAIAAAAAAAXAAEAAAAIAAAAAAAYAAEAAAAIAAAAAAAZAAEAAAAIAAAAAAAOAAEAAAAIAAAAAAAEAAoAAAADAAAAAAAFAAoAAAADAAAAAAAGAAoAAAADAAAAAAAHAAoAAAADAAAAAAAdAAcAAAABAAAAAAAHAAIAAAAHAAAAAAAJAAIAAAAGAAAAAAAIAAIAAAAIAAAAAAA=")
+tile_set = SubResource("TileSet_o5qli")
+script = ExtResource("2_kew7w")
+
+[node name="PlantGroup" type="Node2D" parent="."]
+position = Vector2(377, 0)
+
+[node name="Plants" parent="PlantGroup" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup2" type="Node2D" parent="."]
+position = Vector2(632, -128)
+
+[node name="Plants" parent="PlantGroup2" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup2" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup2" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup3" type="Node2D" parent="."]
+position = Vector2(-63, 0)
+
+[node name="Plants" parent="PlantGroup3" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup3" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup3" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup7" type="Node2D" parent="."]
+position = Vector2(584, 0)
+
+[node name="Plants" parent="PlantGroup7" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup7" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup7" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup4" type="Node2D" parent="."]
+position = Vector2(282, 384)
+scale = Vector2(1, -1)
+
+[node name="Plants" parent="PlantGroup4" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup4" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup4" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup8" type="Node2D" parent="."]
+position = Vector2(18, 416)
+scale = Vector2(1, -1)
+
+[node name="Plants" parent="PlantGroup8" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup8" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup8" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup5" type="Node2D" parent="."]
+position = Vector2(319, 384)
+scale = Vector2(1, -1)
+
+[node name="Plants" parent="PlantGroup5" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup5" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup5" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="PlantGroup6" type="Node2D" parent="."]
+position = Vector2(387, 384)
+scale = Vector2(1, -1)
+
+[node name="Plants" parent="PlantGroup6" instance=ExtResource("4_pvj1d")]
+position = Vector2(265, 320)
+scale = Vector2(2, 2)
+
+[node name="Plants2" parent="PlantGroup6" instance=ExtResource("4_pvj1d")]
+position = Vector2(275, 320)
+
+[node name="Plants3" parent="PlantGroup6" instance=ExtResource("4_pvj1d")]
+position = Vector2(253, 320)
+scale = Vector2(1.5, 1.5)
+
+[node name="Lamp" parent="." instance=ExtResource("4_m1hwq")]
+position = Vector2(819, 70)

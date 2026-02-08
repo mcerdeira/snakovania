@@ -1,5 +1,8 @@
 extends Area2D
 
+func _ready() -> void:
+	Global.VisitedCells[Global.CurrentLevel[0]][Global.CurrentLevel[1]] = "2"
+
 func _on_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("player"):
 		if body.is_on_floor():

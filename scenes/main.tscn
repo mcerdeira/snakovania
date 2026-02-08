@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dta1aqkgbvcvu" path="res://scenes/item_notification.gd" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://dl4e7aiqkrpbd" path="res://scenes/camera.gd" id="3_tbgi4"]
 [ext_resource type="Shader" uid="uid://bpoomkb0q887x" path="res://scenes/chromatic.gdshader" id="4_jyhfs"]
-[ext_resource type="Script" uid="uid://b23mai17a2k30" path="res://scenes/map.gd" id="4_tefeu"]
+[ext_resource type="Script" uid="uid://b38wocmdebwel" path="res://scenes/map_real.gd" id="4_tefeu"]
 
 [sub_resource type="Environment" id="Environment_tefeu"]
 background_mode = 3
@@ -36,23 +36,24 @@ z_index = 4096
 material = SubResource("ShaderMaterial_tbgi4")
 offset_left = -44.0
 offset_top = -35.0
-offset_right = 1202.0
+offset_right = 1191.0
 offset_bottom = 682.0
-metadata/_edit_lock_ = true
-
-[node name="CameraMap" type="Camera2D" parent="Camera"]
-unique_name_in_owner = true
-process_mode = 3
-position = Vector2(1728, 321)
-enabled = false
 metadata/_edit_lock_ = true
 
 [node name="Map" type="Node2D" parent="Camera"]
 process_mode = 3
+visible = false
 z_index = 4096
-position = Vector2(1152, 0)
 script = ExtResource("4_tefeu")
 metadata/_edit_lock_ = true
+
+[node name="mapblock" type="ColorRect" parent="Camera/Map"]
+unique_name_in_owner = true
+offset_left = -49.0
+offset_top = -49.0
+offset_right = 1237.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.890196)
 
 [node name="ItemNotification" type="Node2D" parent="Camera"]
 process_mode = 3
@@ -62,6 +63,7 @@ script = ExtResource("2_sugp2")
 metadata/_edit_lock_ = true
 
 [node name="background" type="ColorRect" parent="Camera/ItemNotification"]
+visible = false
 offset_left = 150.0
 offset_top = 183.0
 offset_right = 1007.0
@@ -81,16 +83,18 @@ offset_right = 999.0
 offset_bottom = 222.0
 theme_override_fonts/font = ExtResource("2_0wfyh")
 theme_override_font_sizes/font_size = 26
+text = "rretretertetreteert"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="lbl_description" type="Label" parent="Camera/ItemNotification"]
 offset_left = 157.0
-offset_top = 247.0
+offset_top = 231.0
 offset_right = 998.0
-offset_bottom = 415.0
+offset_bottom = 368.0
 theme_override_fonts/font = ExtResource("2_0wfyh")
 theme_override_font_sizes/font_size = 16
-text = "SAVING YOUR GAME..."
+text = "SAVING YOUR GAME...ertertetetetertertertretrtetretertertertr"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3

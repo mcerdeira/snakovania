@@ -9,6 +9,7 @@ func _ready() -> void:
 	
 func setRoom():
 	var coordenas = Global.World[Global.CurrentLevel[0]][Global.CurrentLevel[1]]
+	Global.VisitedCells[Global.CurrentLevel[0]][Global.CurrentLevel[1]] = "1"
 	var room = "room_" + str(coordenas) + ".tscn"
 	var lvl_scene = load("res://levels/" + room)
 	var lvl = lvl_scene.instantiate()

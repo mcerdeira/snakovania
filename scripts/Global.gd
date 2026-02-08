@@ -10,6 +10,7 @@ var MainTheme = null
 var CurrentLevel = null
 var InitialPosition = Vector2(576, 304)
 var CurrentWorldPos = Vector2.ZERO
+var VisitedCells = []
 var PlayerSpawnPoint = null
 var PlayerFlipH = false
 var PlayerVelocityY = 0
@@ -22,18 +23,23 @@ var prev_room = null
 var World =[]
 
 #HABILIDADES
-var Hasgrow = true
-var HasSwim = true
-var HasMap = true
-var HasSplit = true
-var HasHook = true
+var Hasgrow = false
+var HasSwim = false
+var HasMap = false
+var HasSplit = false
+var HasHook = false
 
 func load_worldmap():
 	var file = FileAccess.open("res://levels/world.csv",FileAccess.READ)
 	while not file.eof_reached():
 		var csv_line: PackedStringArray = file.get_csv_line(";")
-		if not csv_line.is_empty():
+		if not csv_line.is_empty() and csv_line.size() > 1:
 			World.append(csv_line)
+			
+	VisitedCells = World.duplicate(true)
+	for y in range(VisitedCells.size()):
+		for x in range(VisitedCells[y].size()):
+			VisitedCells[y][x] = "0"
 		
 func _ready() -> void:
 	CurrentLevel = [7, 7]
@@ -70,6 +76,7 @@ func save_game():
 	saved_game.store_var(CurrentLevel)
 	saved_game.store_var(InitialPosition)
 	saved_game.store_var(CurrentWorldPos)
+	saved_game.store_var(VisitedCells)
 	saved_game.store_var(Hasgrow)
 	saved_game.store_var(HasSwim)
 	saved_game.store_var(HasMap)
@@ -85,6 +92,7 @@ func load_game():
 			var cur_level = saved_game.get_var()
 			var ini_position = saved_game.get_var()
 			var cur_world = saved_game.get_var()
+			var visited = saved_game.get_var()
 			var has_grow = saved_game.get_var()
 			var has_swim = saved_game.get_var()
 			var has_map = saved_game.get_var()
@@ -96,6 +104,8 @@ func load_game():
 				InitialPosition = ini_position
 			if cur_world:
 				CurrentWorldPos = cur_world
+			if visited:
+				VisitedCells = visited
 			if has_grow:
 				Hasgrow = has_grow
 			if has_swim:
