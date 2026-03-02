@@ -30,7 +30,7 @@ func _ready() -> void:
 			visible = true
 	elif item_type == "split":
 		title = "SPLIT"
-		description = "Divide yourself in two."
+		description = "Divide yourself in two using <Z> and <TAB> to switch."
 		if Global.HasSplit:
 			queue_free()
 		else:

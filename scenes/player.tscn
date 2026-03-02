@@ -1,12 +1,32 @@
-[gd_scene load_steps=17 format=3 uid="uid://qt6c1px06bjv"]
+[gd_scene load_steps=21 format=3 uid="uid://qt6c1px06bjv"]
 
 [ext_resource type="Script" uid="uid://bfe26kbgge1px" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bhmyhn78v22bh" path="res://scenes/fake_tail.gd" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://dj2ibyx75r0ne" path="res://sprites/player_worm_spr_0.png" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://b4o5hr5wg7ymq" path="res://sprites/player_fake_tail_spr1.png" id="2_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://5dbhtfanihha" path="res://sprites/cosito1.png" id="2_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://sm2bbgicicux" path="res://sprites/cosito2.png" id="3_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://mym60toip4vm" path="res://sprites/player_tail_spr.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://h0hlxclcqunm" path="res://sprites/player_fake_tail_spr2.png" id="3_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dxli21mg7mj18" path="res://sprites/cosito3.png" id="4_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://b3lac17dgdeo5" path="res://sprites/lines.png" id="6_tuyoq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jej6c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_y4r1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d2wvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3v2ag")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
 animations = [{
@@ -151,6 +171,13 @@ animations = [{
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
 script = ExtResource("1_g2els")
+
+[node name="cosito" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -43)
+sprite_frames = SubResource("SpriteFrames_jej6c")
+autoplay = "default"
+frame_progress = 0.26194
 
 [node name="fake_tail" type="Area2D" parent="."]
 visible = false

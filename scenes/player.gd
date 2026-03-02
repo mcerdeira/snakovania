@@ -11,6 +11,7 @@ extends CharacterBody2D
 @export var max_angle := 60.0
 @export var aim_speed := 40.0
 @export var shoot_distance := 1152.0
+var control_me = true
 var splited = false
 var is_clone = false
 var aim_angle := 0.0
@@ -71,6 +72,16 @@ func add_parts():
 	body.append(g)
 
 func _physics_process(delta: float) -> void:
+	if splited:
+		if Input.is_action_just_pressed("switch"):
+			control_me = !control_me
+		if control_me:
+			$cosito.visible = true
+		else:
+			$cosito.visible = false
+	else:
+		$cosito.visible = false
+	
 	if global_position.x < Global.Camera.global_position.x:
 		if is_clone:
 			Global.player.re_call()
@@ -95,6 +106,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			Global.calcRoom("U")
 			Global.Main.setRoom()
+			
+	if splited and !control_me:
+		return
 		
 	if is_in_water:
 		if dir_changed:
@@ -112,7 +126,7 @@ func _physics_process(delta: float) -> void:
 			elif direction != Vector2.UP and Input.is_action_just_pressed("down"):
 				dir_changed = false
 				direction = Vector2.DOWN
-
+		
 		ttl -= 1 * delta
 		if ttl_add_parts > 0:
 			ttl_add_parts -= 1 * delta
@@ -183,6 +197,7 @@ func _physics_process(delta: float) -> void:
 					shoot_line.clear_points() 
 					splited = true
 					maxsize = 5
+					control_me = false
 					shoot()
 		
 		if !shooting:
@@ -255,7 +270,9 @@ func update_line(from: Vector2, to: Vector2):
 	shoot_line.add_point(to)
 	
 func set_clone():
+	splited = true
 	is_clone = true
+	control_me = true
 	maxsize = 5
 	add_to_group("clones")
 	$sprite.animation = "clone"
