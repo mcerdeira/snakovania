@@ -25,7 +25,7 @@ var World =[]
 #HABILIDADES
 var Hasgrow = true
 var HasSwim = false
-var HasMap = false
+var HasMap = true
 var HasSplit = true
 var HasHook = false
 

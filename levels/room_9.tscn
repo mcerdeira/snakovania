@@ -174,5 +174,5 @@ position = Vector2(480, 70)
 position = Vector2(880, 144)
 
 [node name="DoorSwitch" parent="." node_paths=PackedStringArray("door") instance=ExtResource("6_gj0vw")]
-position = Vector2(306, 320)
+position = Vector2(346, 320)
 door = NodePath("../Door")
